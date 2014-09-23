@@ -25,7 +25,7 @@ typedef struct letter
 
 typedef struct board
 {
-    letter[WIDTH][HEIGHT] elements;
+    letter elements[WIDTH][HEIGHT];
 } board;
 
 #endif
