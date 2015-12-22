@@ -1,11 +1,14 @@
 # Makefile
-# David Turner 2014
+# David Turner 2015
 #
 # Purpose: Builds PuzzleClock executable
 
-all: comstructs.h gui.h puzzleclock.c
-	gcc -Wall -g -o puzzleclock puzzleclock.c
-clang: comstructs.h gui.h puzzleclock.c
-	clang -Wall -g -o puzzleclock puzzleclock.c
+CFLAGS = -Wall -g
+
+all: boardFunctions puzzleclock.c
+	$(CC) $(CFLAGS) -o puzzleclock puzzleclock.c boardFunctions.o
+boardFunctions: comstructs.h boardFunctions.h boardFunctions.c
+	$(CC) $(CFLAGS) -c -o boardFunctions.o boardFunctions.c
 clean:
-	rm puzzleclock puzzleclock.dSYM
+	rm puzzleclock *.o
+	rm -rf *.dSYM

@@ -1,5 +1,5 @@
 /* gui.h
- * David Turner 2014
+ * David Turner 2015
  *
  * Purpose: This file contains constants and function prototypes
  *          for the graphical user interface.
@@ -10,10 +10,10 @@
 
 #include <curses.h>
 
-void initscreen(WINDOW* inwindow, board* inboard);
+void initscreen(WINDOW* inWindow, board* inBoard);
 
-void updatescreen(WINDOW* inwindow, board* inboard);
+void updatescreen(WINDOW* inWindow, board* inBoard);
 
-void displetter(WINDOW* inwindow, int x, int y, letter inletter);
+void dispLetter(WINDOW* inWindow, int x, int y, letter inLetter);
 
 #endif
