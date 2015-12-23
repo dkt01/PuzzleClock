@@ -10,7 +10,7 @@
 #include "comstructs.h"
 #include "boardFunctions.h"
 
- uint8_t moveCell(board* inBoard, uint8_t dir)
+uint8_t moveCell(board* inBoard, uint8_t dir)
 {
     uint8_t oldX;
     uint8_t oldY;
@@ -74,6 +74,9 @@ uint8_t initBoard(board* inBoard, char* letterString)
         inBoard->elements[index/WIDTH][index%WIDTH].illumination = OFF;
     }
 
+    inBoard->emptyIndexX = WIDTH-1;
+    inBoard->emptyIndexY = HEIGHT-1;
+
     return TRUE;
 }
 
@@ -82,16 +85,106 @@ uint8_t printBoard(board* inBoard)
     if(inBoard == NULL)
         return FALSE;
 
+    printf("\n");
     for(uint8_t y = 0; y < HEIGHT; y++)
     {
         for(uint8_t x = 0; x < WIDTH; x++)
         {
             printf(" %s%c",inBoard->elements[y][x].illumination == ON ? ONCOLOR : OFFCOLOR,
-                           inBoard->elements[y][x].value);
+                           x == inBoard->emptyIndexX && y == inBoard->emptyIndexY ? '#' : inBoard->elements[y][x].value);
         }
         printf("\n");
     }
-    printf("%s",ONCOLOR);
+    printf("%s\n",ONCOLOR);
+    return TRUE;
+}
+
+int32_t distToSolution(board* inBoard, char* solution)
+{
+    for(uint8_t y = 0; y < HEIGHT; y++)
+    {
+        for(uint8_t x = 0; x < WIDTH; x++)
+        {
+
+        }
+    }
+    return 0;
+}
+
+uint8_t illuminateSolution(board* inBoard, char* solution)
+{
+    if(inBoard == NULL || solution == NULL)
+    {
+        return FALSE;
+    }
+    uint8_t solutionIndex = 0;
+    uint8_t inWord = FALSE;
+    uint8_t len = 0;
+    for(uint8_t y = 0; y < HEIGHT; y++)
+    {
+        for(uint8_t x = 0; x < WIDTH; x++)
+        {
+            if(solution[solutionIndex] == '\0')
+            {
+                deluminateLine(inBoard,y,x);
+                break;
+            }
+            else if(solution[solutionIndex] == ' ')
+            {
+                inWord = FALSE;
+                inBoard->elements[y][x].illumination = OFF;
+                solutionIndex++;
+                continue;
+            }
+            else if(inWord == FALSE)
+            {
+                len = wordLength(&solution[solutionIndex]);
+                inWord = TRUE;
+            }
+            if(len > (WIDTH - x))
+            {
+                deluminateLine(inBoard,y,x);
+                break;
+            }
+            if(solution[solutionIndex] == inBoard->elements[y][x].value)
+            {
+                inBoard->elements[y][x].illumination = ON;
+                solutionIndex++;
+                len--;
+            }
+            else
+            {
+                inBoard->elements[y][x].illumination = OFF;
+            }
+        }
+    }
+    return TRUE;
+}
+
+uint8_t wordLength(char* string)
+{
+    if(string == NULL)
+    {
+        return FALSE;
+    }
+    uint8_t length = 0;
+    while(string[length] != ' ' && string[length] != '\0')
+    {
+        length++;
+    }
+    return length;
+}
+
+uint8_t deluminateLine(board* inBoard, uint8_t y, uint8_t x)
+{
+    if(inBoard == NULL || y >= HEIGHT)
+    {
+        return FALSE;
+    }
+    for(; x < WIDTH; x++)
+    {
+        inBoard->elements[y][x].illumination = OFF;
+    }
     return TRUE;
 }
 

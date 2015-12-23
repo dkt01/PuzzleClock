@@ -1,5 +1,5 @@
 /* puzzleclock.c
- * David Turner 2014
+ * David Turner 2015
  *
  * Purpose: This file is the main program for PuzzleClock.
  */
@@ -13,7 +13,8 @@
 int main()
 {
     board myBoard;
-    char testString[] = "This Is A Test of Everything...ish but It's not perfect";
+    char testString[] = "This Is A Test of Everything...ish but It's not perfect\0";
+    char testSolution[] = "This of thing but not\0";
     initBoard(&myBoard,testString);
 
     uint8_t illumination = ON;
@@ -26,6 +27,10 @@ int main()
             illumination = (illumination == ON ? OFF : ON);
         }
     }
+
+    printBoard(&myBoard);
+
+    illuminateSolution(&myBoard,testSolution);
 
     printBoard(&myBoard);
     return 0;

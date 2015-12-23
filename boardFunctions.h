@@ -24,6 +24,14 @@ uint8_t initBoard(board* inBoard, char* letterString);
 
 uint8_t printBoard(board* inBoard);
 
+int32_t distToSolution(board* inBoard, char* solution);
+
+uint8_t illuminateSolution(board* inBoard, char* solution);
+
+uint8_t wordLength(char* string);
+
+uint8_t deluminateLine(board* inBoard, uint8_t y, uint8_t x);
+
 uint8_t swap(letter* first, letter* second);
 
 #endif
