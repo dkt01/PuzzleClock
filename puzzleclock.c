@@ -13,8 +13,12 @@
 int main()
 {
     board myBoard;
-    char testString[] = "THIS NOT THATHAT IS A SOSOLUTION    HELLA HELLO WURLD?WORLD!\0";
-    char testSolution[] = "THIS NOT THAT IS A SOLUTION HELLO WORLD!\0";
+    board solBoard;
+    char emptyString[] = "\0";
+    char testTime[] = "IT IS TWENTY FIVE MINUTES PAST EIGHT AM\0";
+    char testString[] = "AAAAACCCEEEEEEEEFFGHHIIIIIIIKLLMMNNNNNOOOOOPPQRRRRSSSSSTTTTTTTUUUVVWWXY\0";
+    char testSolution[] = "NOOOO\0";
+    initBoard(&solBoard,emptyString);
     initBoard(&myBoard,testString);
 
     uint8_t illumination = ON;
@@ -33,5 +37,10 @@ int main()
     illuminateSolution(&myBoard,testSolution);
 
     printBoard(&myBoard);
+
+    generateSolution(&solBoard,testTime);
+
+    printBoard(&solBoard);
+
     return 0;
 }

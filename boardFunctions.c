@@ -134,6 +134,10 @@ uint8_t illuminateSolution(board* inBoard, char* solution)
                 inWord = FALSE;
                 inBoard->elements[y][x].illumination = OFF;
                 solutionIndex++;
+                if(x == 0)
+                {
+                    x--;
+                }
                 continue;
             }
             else if(inWord == FALSE)
@@ -160,6 +164,55 @@ uint8_t illuminateSolution(board* inBoard, char* solution)
         }
     }
     return TRUE;
+}
+
+uint8_t generateSolution(board* solBoard, char* solution)
+{
+    if(solBoard == NULL || solution == NULL)
+    {
+        return FALSE;
+    }
+
+    uint8_t solutionIndex = 0;
+    uint8_t inWord = FALSE;
+    uint8_t len = 0;
+    for(uint8_t y = 0; y < HEIGHT; y++)
+    {
+        for(uint8_t x = 0; x < WIDTH; x++)
+        {
+            if(solution[solutionIndex] == '\0')
+            {
+                return TRUE;
+            }
+            else if(solution[solutionIndex] == ' ')
+            {
+                inWord = FALSE;
+                solutionIndex++;
+                if(x == 0)
+                {
+                    x--;
+                }
+                continue;
+            }
+            else if(inWord == FALSE)
+            {
+                len = wordLength(&solution[solutionIndex]);
+                inWord = TRUE;
+            }
+            if(len > (WIDTH - x))
+            {
+                break;
+            }
+            else
+            {
+                solBoard->elements[y][x].illumination = ON;
+                solBoard->elements[y][x].value = solution[solutionIndex];
+                solutionIndex++;
+                len--;
+            }
+        }
+    }
+    return FALSE;
 }
 
 uint8_t checkWord(board* inBoard, char* word, uint8_t y, uint8_t x)
