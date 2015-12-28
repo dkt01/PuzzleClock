@@ -28,6 +28,8 @@ int32_t distToSolution(board* inBoard, char* solution);
 
 uint8_t illuminateSolution(board* inBoard, char* solution);
 
+uint8_t checkWord(board* inBoard, char* word, uint8_t y, uint8_t x);
+
 uint8_t wordLength(char* string);
 
 uint8_t deluminateLine(board* inBoard, uint8_t y, uint8_t x);

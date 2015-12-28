@@ -146,7 +146,8 @@ uint8_t illuminateSolution(board* inBoard, char* solution)
                 deluminateLine(inBoard,y,x);
                 break;
             }
-            if(solution[solutionIndex] == inBoard->elements[y][x].value)
+            if(solution[solutionIndex] == inBoard->elements[y][x].value &&
+               checkWord(inBoard, &solution[solutionIndex], y, x) == TRUE)
             {
                 inBoard->elements[y][x].illumination = ON;
                 solutionIndex++;
@@ -157,6 +158,34 @@ uint8_t illuminateSolution(board* inBoard, char* solution)
                 inBoard->elements[y][x].illumination = OFF;
             }
         }
+    }
+    return TRUE;
+}
+
+uint8_t checkWord(board* inBoard, char* word, uint8_t y, uint8_t x)
+{
+    if(inBoard == NULL || word == NULL)
+    {
+        return FALSE;
+    }
+
+    uint8_t i = 0;
+
+    while(TRUE)
+    {
+        if(word[i] == ' ' || word[i] == '\0')
+        {
+            break;
+        }
+        if(i + x >= WIDTH)
+        {
+            return FALSE;
+        }
+        if(word[i] != inBoard->elements[y][x+i].value)
+        {
+            return FALSE;
+        }
+        i++;
     }
     return TRUE;
 }

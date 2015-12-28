@@ -13,8 +13,8 @@
 int main()
 {
     board myBoard;
-    char testString[] = "This Is A Test of Everything...ish but It's not perfect\0";
-    char testSolution[] = "This of thing but not\0";
+    char testString[] = "THIS NOT THATHAT IS A SOSOLUTION    HELLA HELLO WURLD?WORLD!\0";
+    char testSolution[] = "THIS NOT THAT IS A SOLUTION HELLO WORLD!\0";
     initBoard(&myBoard,testString);
 
     uint8_t illumination = ON;

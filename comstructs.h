@@ -14,8 +14,8 @@
  * modifiable to simplify future processes
  */
 
-#define WIDTH  11
-#define HEIGHT 5
+#define WIDTH  12
+#define HEIGHT 6
 #define ON  1
 #define OFF 0
 #define TRUE 1
